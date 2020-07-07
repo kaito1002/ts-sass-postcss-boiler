@@ -30,7 +30,9 @@ body {
 .l-main {
     margin: $header-height 0 0 0;
     display: grid;
-    grid-template: "content" 1fr "footer" $footer-height;
+    grid-template:
+        "content" 1fr
+        "footer" $footer-height;
 }
 
 .l-content {
@@ -52,7 +54,12 @@ body {
 }
 
 .m-target {
-    // duplicate selector delete check
+    // merge css check
+    font-size: 20px;
+}
+
+.m-target {
+    // duplicate css delete check
     color: green;
 }
 
