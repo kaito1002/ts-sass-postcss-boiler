@@ -2,7 +2,7 @@ const targetClassName = "js-rotate";
 const targetElements = document.getElementsByClassName(targetClassName);
 let degree = 0
 
-module.exports = () => {
+export default () => {
     degree = degree + 6;
     degree = degree % 360;
 

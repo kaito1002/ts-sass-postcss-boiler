@@ -1,4 +1,4 @@
 import "./styles/index.scss";
+import rotate from "./scripts/rotate";
 
-const rotate = require("./scripts/rotate")
 setInterval(rotate, 20);
