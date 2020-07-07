@@ -22,4 +22,4 @@ Build files are created in `/dist` dir!
     - [autoprefixer](https://github.com/postcss/autoprefixer): add benderprefix automatically
     - [cssnano](https://github.com/cssnano/cssnano): minimaize css
     - [purgecss](https://github.com/FullHuman/purgecss): remove unuse css
-    - Live reload
+- Live reload
