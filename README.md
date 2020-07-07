@@ -19,7 +19,7 @@ Build files are created in `/dist` dir!
 
 - TypeScript => Javascript
 - Sass => (PostCss) => Built Css
-      - [autoprefixer](https://github.com/postcss/autoprefixer): add benderprefix automatically
-      - [cssnano](https://github.com/cssnano/cssnano): minimaize css
-      - [purgecss](https://github.com/FullHuman/purgecss): remove unuse css
-- Live reload
+    - [autoprefixer](https://github.com/postcss/autoprefixer): add benderprefix automatically
+    - [cssnano](https://github.com/cssnano/cssnano): minimaize css
+    - [purgecss](https://github.com/FullHuman/purgecss): remove unuse css
+    - Live reload
