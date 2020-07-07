@@ -1,0 +1,73 @@
+// base
+body {
+    color: $font-color;
+    margin: 0;
+}
+
+// layout
+.l-header {
+    // style
+    background-color: $header-color;
+    backdrop-filter: blur(6px);
+    opacity: 0.8;
+    // layouts
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: $header-height;
+    width: 100vw;
+    z-index: 10;
+    &__title {
+        font-size: 5rem;
+        font-weight: bold;
+    }
+}
+
+.l-main {
+    margin: $header-height 0 0 0;
+    display: grid;
+    grid-template: "content" 1fr "footer" $footer-height;
+}
+
+.l-content {
+    grid-area: content;
+    min-height: 100vh - ($header-height + $footer-height);
+}
+
+.l-footer {
+    background-color: $footer-color;
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// module
+.m-target {
+    color: green;
+}
+
+.m-target {
+    // duplicate selector delete check
+    color: green;
+}
+
+// js
+.js-rotate {
+    // js-* selectors remain even if it's un-used in static html files.
+    &--face {
+        opacity: 1;
+    }
+    &--back {
+        opacity: 0.4;
+    }
+}
+
+.hoge {
+    // test for removing un-used css by PurgeCss
+    color: red;
+}
