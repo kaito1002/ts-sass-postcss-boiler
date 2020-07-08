@@ -34,6 +34,7 @@ body {
     grid-template:
         "content" 1fr
         "footer" $footer-height;
+    grid-template-columns: 1fr;
 }
 
 .l-content {
