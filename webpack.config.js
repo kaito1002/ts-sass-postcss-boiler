@@ -51,6 +51,12 @@ const baseConfig = {
             options: {
               transpileOnly: false
             }
+          },
+          {
+            loader: "eslint-loader",
+            options: {
+              cache: true
+            }
           }
         ],
         exclude: /node_modules/
