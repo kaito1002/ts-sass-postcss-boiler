@@ -8,6 +8,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const buildDir = "dist";
 const isBundleCss = true;
+
 /*
   - CSSを`.css`ファイルにバンドルするか(しない場合は, JSにバンドルされる)
   - しない場合, HTMLからlinkタグを取り除く
