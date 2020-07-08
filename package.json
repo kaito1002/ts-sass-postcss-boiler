@@ -41,9 +41,6 @@
     "webpack-md5-hash": "^0.0.6"
   },
   "dependencies": {
-    "@types/node": "^11.13.4",
-    "jquery": "^3.3.1",
-    "normalize-scss": "^7.0.1",
-    "normalize.css": "^8.0.1"
+    "@types/node": "^11.13.4"
   }
 }
