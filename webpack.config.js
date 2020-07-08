@@ -4,6 +4,7 @@ const WebpackMd5Hash = require("webpack-md5-hash");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const buildDir = "dist";
 const isBundleCss = true;
@@ -36,7 +37,8 @@ const baseConfig = {
           reuseExistingChunk: true
         }
       }
-    }
+    },
+    minimizer: []
   },
   module: {
     rules: [
@@ -134,6 +136,14 @@ const productConfig = Object.assign({}, baseConfig, {
   ]
 })
 
+productConfig.optimization.minimizer.push(
+  new TerserPlugin({
+    terserOptions: {
+      extractComments: 'all',
+      compress: { drop_console: true }
+    }
+  })
+)
 
 module.exports = (env, options) => {
   const production = options.mode === "production";
