@@ -7,6 +7,6 @@
         "no-duplicate-imports": "error",
         "no-var": "warn",
         "prefer-const": "warn",
-        "no-console": "off",
+        "no-console": "off"
     }
 }
