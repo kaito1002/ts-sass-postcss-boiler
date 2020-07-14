@@ -7,6 +7,8 @@ $ yarn install
 $ yarn start  # start dev server and open with browser
 ```
 
+If you don't need example site, then use `feature/init` branch version.
+
 ## Build
 
 ``` sh
