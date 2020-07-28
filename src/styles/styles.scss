@@ -1,7 +1,7 @@
 // base
 body {
     color: $font-color;
-    margin: 0;
+    margin: 0
 }
 
 // layout
@@ -31,9 +31,7 @@ body {
 .l-main {
     margin: $header-height 0 0 0;
     display: grid;
-    grid-template:
-        "content" 1fr
-        "footer" $footer-height;
+    grid-template: "content" 1fr "footer" $footer-height;
     grid-template-columns: 1fr;
 }
 

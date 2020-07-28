@@ -149,9 +149,12 @@ const productConfig = Object.assign({}, baseConfig, {
     }),
     // 2. ビルド
     ...baseConfig.plugins,
-    // 3. assetsのコピー
+    // 3. static files のコピー
     new CopyWebpackPlugin({
-      patterns: [{ from: "./src/assets", to: "./assets" }]
+      patterns: [
+        { from: "public", to: "[path][name].[ext]" },
+        { from: "src/assets", to: "assets" }
+      ]
     })
   ]
 })
