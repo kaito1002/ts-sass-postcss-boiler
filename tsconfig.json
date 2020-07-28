@@ -2,10 +2,10 @@
   "compilerOptions": {
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
-    "jsx": "react",
-    "allowJs": true,
+    "lib": ["es2020", "dom"],
+    "module": "es2020",
+    "target": "es2020",
+    "allowJs": false,
     "skipLibCheck": true
   },
   "include": [
