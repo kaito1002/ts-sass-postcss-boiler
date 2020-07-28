@@ -2,7 +2,7 @@ const targetClassName = "js-rotate";
 const targetElements = document.getElementsByClassName(targetClassName);
 let degree = 0
 
-export default (): void => {
+function rotate() {
     degree = degree + 6;
     degree = degree % 360;
 
@@ -17,3 +17,5 @@ export default (): void => {
         element.setAttribute("style", `transform:rotateX(${degree}deg)`);
     });
 }
+
+setInterval(rotate, 20);
