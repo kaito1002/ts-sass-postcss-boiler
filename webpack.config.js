@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const StyleLintPlugin = require('stylelint-webpack-plugin');
@@ -125,7 +125,7 @@ const baseConfig = {
 if (isBundleCss) {
   baseConfig.module.rules[1].use.splice(1, 0, MiniCssExtractPlugin.loader);
   baseConfig.plugins.unshift(new MiniCssExtractPlugin({
-    filename: "style.[name].css"
+    filename: "[name].bundle.css"
   }));
 }
 
@@ -143,9 +143,16 @@ const devConfig = Object.assign({}, baseConfig, {
 const productConfig = Object.assign({}, baseConfig, {
   devtool: false,
   plugins: [
-    new CleanWebpackPlugin([buildDir + "/*.*"], {}),                   // 既存のファイルを削除
-    ...baseConfig.plugins,                                             // ビルド
-    new CopyWebpackPlugin([{ from: "./src/assets", to: "./assets" }])  // assetsのコピー
+    // 1. 既存のファイルを削除
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ["**/*"]
+    }),
+    // 2. ビルド
+    ...baseConfig.plugins,
+    // 3. assetsのコピー
+    new CopyWebpackPlugin({
+      patterns: [{ from: "./src/assets", to: "./assets" }]
+    })
   ]
 })
 
