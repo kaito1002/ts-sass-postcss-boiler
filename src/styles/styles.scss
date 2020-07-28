@@ -23,7 +23,7 @@ body {
     width: 100vw;
     z-index: 10;
     &__title {
-        font-size: 5rem;
+        font-size: 3rem;
         font-weight: bold;
     }
 }
@@ -37,7 +37,7 @@ body {
 
 .l-content {
     grid-area: content;
-    min-height: 100vh - ($header-height + $footer-height);
+    min-height: calc( 100vh - (#{$header-height} + #{$footer-height}));
 }
 
 .l-footer {
