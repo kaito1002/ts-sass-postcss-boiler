@@ -1,0 +1,15 @@
+@use "sass:map";
+
+$-breakpoints: (
+  'zero': 0,
+  'sm': 600px,   // 〜 縦スマホ
+  'md': 960px,   // 〜 横スマホ or タブレット
+  'lg': 1264px,  // 〜 ラップトップ
+  'xs': 2000px,  // 〜 デスクトップ
+) !default;
+
+@mixin mq($from, $to) {
+  @media only screen and (min-width: #{map.get($-breakpoints, $from)}) and (max-width: #{map.get($-breakpoints, $to)}) {
+    @content;
+  }
+};

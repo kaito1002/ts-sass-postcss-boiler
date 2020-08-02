@@ -1,0 +1,13 @@
+// color
+// base color
+$black: #303030!default;
+$black-weak: #707070!default;
+$black-thin: transparentize($black, $amount: 0.8)!default;
+$white: #fafafa!default;
+$white-weak: #382121!default;
+$green: #64DD17!default;
+$skyblue: #00B0FF!default;
+// color
+$text-color: $black!default;
+$link-color: $skyblue!default;
+$success-color: $green!default;

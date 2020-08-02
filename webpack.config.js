@@ -72,29 +72,15 @@ const baseConfig = {
               importLoaders: 2
             }
           },
-          {
-            loader: "postcss-loader",
-            options: {
-              sourceMap: true,
-              plugins: [
-                require('autoprefixer')({
-                  grid: "autoplace",
-                  // Grid対応: https://github.com/postcss/autoprefixer#grid-autoplacement-support-in-ie
-                  // browserlist => use package.json's browserslist
-                }),
-                require('cssnano')({ preset: 'default' }),
-                require('@fullhuman/postcss-purgecss')({
-                  content: ['./src/*.html'],
-                  css: ['./dist/*.css'],
-                  whitelistPatternsChildren: [/js-/],  // 参考: https://purgecss.com/whitelisting.html#specific-selectors
-                })
-              ]
-            }
-          },
+          'postcss-loader',
           {
             loader: "sass-loader",
             options: {
-              sourceMap: true
+              sourceMap: true,
+              implementation: require('sass'),
+              sassOptions: {
+                fiber: require('fibers')
+              }
             }
           }
         ]

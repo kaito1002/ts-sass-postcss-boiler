@@ -1,0 +1,65 @@
+@use '../global' as g;
+@use 'variable' as l;
+// layout
+.l-header {
+    // outer layout
+    position: sticky;
+    top: 0;
+    left: 0;
+    // inner layout
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: l.$header-height;
+    // style
+    background-color: l.$header-color;
+    backdrop-filter: blur(6px);
+    opacity: 0.75;
+    box-shadow: 0 0 2px g.$black-thin;
+    z-index: 10;
+    &__title {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+}
+
+.l-content {
+    min-height: calc(100vh - (#{l.$header-height} + #{l.$footer-height}));
+}
+
+.l-footer {
+    // layout
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: l.$footer-height;
+    // style
+    background-color: l.$footer-color;
+}
+
+// module
+.m-target {
+    color: green;
+}
+
+.m-target {
+    // merge css check
+    font-size: 20px;
+}
+
+// js
+.js-rotate {
+    // js-* selectors remain even if it's un-used in static html files.
+    &--face {
+        opacity: 1;
+    }
+    &--back {
+        opacity: 0.4;
+    }
+}
+
+.hoge {
+    // test for removing un-used css by PurgeCss
+    color: red;
+}
