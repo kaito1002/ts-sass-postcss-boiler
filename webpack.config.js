@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const StyleLintPlugin = require('stylelint-webpack-plugin');
+const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 
 const buildDir = "dist";
 const isBundleCss = true;
@@ -141,6 +142,15 @@ const productConfig = Object.assign({}, baseConfig, {
         { from: "public", to: "[path][name].[ext]" },
         { from: "src/assets", to: "assets" }
       ]
+    }),
+    new ImageminWebpWebpackPlugin({
+      config: [{
+        test: /\.(jpe?g|png)/,
+        options: {
+          quality: 75
+        }
+      }],
+      overrideExtension: false
     })
   ]
 })
