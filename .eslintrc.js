@@ -16,12 +16,5 @@ module.exports = {
     "no-var": "warn",
     "prefer-const": "warn",
     "no-console": "off"
-  },
-  overrides: [
-    {
-      files: [
-        "src/**/*.ts"
-      ],
-    }
-  ]
+  }
 }
