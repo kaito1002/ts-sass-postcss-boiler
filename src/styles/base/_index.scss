@@ -1,5 +1,7 @@
 @use '../global' as g;
+
 @import '~modern-css-reset';
+
 body {
-    color: g.$text-color;
+  color: g.$text-color;
 }

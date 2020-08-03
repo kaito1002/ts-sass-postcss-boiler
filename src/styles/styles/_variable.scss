@@ -1,7 +1,10 @@
 @use '../global' as g;
 // color
-$header-color: g.$skyblue!default;
-$footer-color: g.$black-weak!default;
+$header-color: g.$skyblue !default;
+
+$footer-color: g.$black-weak !default;
+
 // style
-$header-height: 100px!default;
-$footer-height: 150px!default;
+$header-height: 100px !default;
+
+$footer-height: 150px !default;

@@ -1,15 +1,20 @@
-@use "sass:map";
+@use 'sass:map';
+
+// sm: 〜 縦スマホ
+// md: 〜 横スマホ or タブレット
+// lg: 〜 ラップトップ
+// xl: 〜 デスクトップ
 
 $-breakpoints: (
   'zero': 0,
-  'sm': 600px,   // 〜 縦スマホ
-  'md': 960px,   // 〜 横スマホ or タブレット
-  'lg': 1264px,  // 〜 ラップトップ
-  'xs': 2000px,  // 〜 デスクトップ
+  'sm': 600px,
+  'md': 960px,
+  'lg': 1264px,
+  'xl': 2000px,
 ) !default;
 
 @mixin mq($from, $to) {
   @media only screen and (min-width: #{map.get($-breakpoints, $from)}) and (max-width: #{map.get($-breakpoints, $to)}) {
     @content;
   }
-};
+}
