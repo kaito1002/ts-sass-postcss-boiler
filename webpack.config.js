@@ -56,7 +56,9 @@ const baseConfig = {
           {
             loader: "eslint-loader",
             options: {
-              cache: true
+              configFile: path.resolve(__dirname, '.eslintrc.js'),
+              cache: true,
+              fix: true
             }
           }
         ],
@@ -89,7 +91,7 @@ const baseConfig = {
     ]
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".ts", ".js"]
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -98,12 +100,19 @@ const baseConfig = {
       template: "./src/index.html",
       filename: "index.html"
     }),
+    new ImageminWebpWebpackPlugin({
+      config: [{
+        test: /\.(jpe?g|png)/,
+        options: {
+          quality: 75
+        }
+      }],
+      overrideExtension: false
+    }),
     new StyleLintPlugin({
-      // 設定ファイル: .stylelintrc
-      // 詳細: https://stylelint.io/user-guide/configure
-      // ルール: https://stylelint.io/user-guide/rules/list
-      files: ['./src/styles/**.scss'],
-      syntax: 'scss'
+      files: ['./src/styles/**/*.scss'],
+      syntax: 'scss',
+      fix: true
     })
   ]
 };
@@ -142,15 +151,6 @@ const productConfig = Object.assign({}, baseConfig, {
         { from: "public", to: "[path][name].[ext]" },
         { from: "src/assets", to: "assets" }
       ]
-    }),
-    new ImageminWebpWebpackPlugin({
-      config: [{
-        test: /\.(jpe?g|png)/,
-        options: {
-          quality: 75
-        }
-      }],
-      overrideExtension: false
     })
   ]
 })
