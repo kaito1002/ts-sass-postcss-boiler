@@ -5,13 +5,13 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
   ],
   plugins: [
     "@typescript-eslint"
   ],
   rules: {
-    "quotes": ["error", "single"],
     "no-duplicate-imports": "error",
     "no-var": "warn",
     "prefer-const": "warn",
@@ -20,8 +20,7 @@ module.exports = {
   overrides: [
     {
       files: [
-        "src/scripts/*.ts",
-        "src/index.ts"
+        "src/**/*.ts"
       ],
     }
   ]

@@ -1,10 +1,12 @@
 module.exports = {
   extends: [
     "stylelint-config-recommended",
-    "stylelint-config-standard-scss"
+    "stylelint-config-standard-scss",
+    "stylelint-prettier/recommended"
   ],
   "plugins": [
-    "stylelint-scss"
+    "stylelint-scss",
+    "stylelint-prettier"
   ],
   rules: {
     "unit-no-unknown": true,
@@ -17,5 +19,6 @@ module.exports = {
     "declaration-block-no-shorthand-property-overrides": [true, { "severity": "warning" }],
     "block-no-empty": [true, { "severity": "warning" }],
     "no-duplicate-selectors": [true, { "severity": "warning" }],
+    "prettier/prettier": true,
   }
 }

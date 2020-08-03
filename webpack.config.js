@@ -56,6 +56,7 @@ const baseConfig = {
           {
             loader: "eslint-loader",
             options: {
+              enforce: 'pre',
               configFile: path.resolve(__dirname, '.eslintrc.js'),
               cache: true,
               fix: true
