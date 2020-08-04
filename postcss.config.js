@@ -6,6 +6,7 @@ module.exports = {
     require('autoprefixer')({
       grid: "autoplace"
     }),
+    require('postcss-flexbugs-fixes')({}),
     require('cssnano')({ preset: 'default' }),
     require('@fullhuman/postcss-purgecss')({
       content: ['./src/*.html'],
