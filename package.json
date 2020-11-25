@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --mode development",
-    "start:prod": "yarn build && http-server dist",
+    "dev": "webpack serve --mode development",
+    "try:prod": "yarn build && http-server dist",
     "build": "webpack --mode production",
     "lint": "yarn run lint:eslint && yarn run lint:stylelint",
     "lint:eslint": "eslint src --ext .ts --fix",
