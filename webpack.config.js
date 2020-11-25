@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require('fs');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -12,10 +13,22 @@ const { merge } = require('webpack-merge');
 
 const buildDir = "dist";
 
+const targets = fs.readdirSync(path.resolve(__dirname, 'src', 'entries'))
+  .map(fileName => {
+    const name = fileName.split('.')[0]
+    const htmlPath = `./src/html/${name}.html`
+
+    return {
+      name: name,
+      html: fs.statSync(htmlPath) ? htmlPath : undefined,
+      ts: `./src/entries/${fileName}`,
+    }
+  })
+
 const entries = {}
-for (const fileName of require('fs').readdirSync(path.resolve(__dirname, 'src', 'entries'))) {
-  entries[fileName.split('.')[0]] = `./src/entries/${fileName}`
-}
+targets.forEach(target => {
+  entries[target.name] = target.ts
+})
 
 const baseConfig = {
   entry: entries,
@@ -97,12 +110,14 @@ const baseConfig = {
     new MiniCssExtractPlugin({
       filename: "css/[name].[contenthash].bundle.css"
     }),
-    new HtmlWebpackPlugin({
-      hash: true,
-      template: "./src/html/index.html",
-      inject: false,
-      chunks:['vendor', 'index']
-    }),
+    ...targets
+      .filter(target => typeof target.html !== undefined)
+      .map(target => (new HtmlWebpackPlugin({
+        hash: true,
+        template: target.html,            // ./src/html/index.html
+        inject: false,
+        chunks: ['vendor', target.name],  // 'vendor', 'index'
+      }))),
     new ImageminWebpWebpackPlugin({
       config: [{
         test: /\.(jpe?g|png)/,
@@ -169,6 +184,8 @@ module.exports = (env, options) => {
   const config = production
     ? productConfig
     : devConfig
+
+  console.log(config.entry)
 
   return config;
 };
