@@ -37,6 +37,7 @@
     "copy-webpack-plugin": "^6.0.3",
     "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
+    "ecstatic": "^4.1.4",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
