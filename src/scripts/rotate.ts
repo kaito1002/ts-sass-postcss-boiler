@@ -1,4 +1,4 @@
-const targetClassName = 'js-rotate'
+const targetClassName = `js-rotate`
 const targetElements = document.getElementsByClassName(targetClassName)
 let degree = 0
 
@@ -14,7 +14,7 @@ function rotate() {
       element.classList.add(`${targetClassName}--back`)
       element.classList.remove(`${targetClassName}--face`)
     }
-    element.setAttribute('style', `transform:rotateX(${degree}deg)`)
+    element.setAttribute(`style`, `transform:rotateX(${degree}deg)`)
   })
 }
 

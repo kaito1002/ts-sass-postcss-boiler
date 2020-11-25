@@ -6,15 +6,24 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
   ],
   plugins: [
     "@typescript-eslint"
   ],
   rules: {
-    "no-duplicate-imports": "error",
-    "no-var": "warn",
-    "prefer-const": "warn",
+    quotes: "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/quotes": [
+      2,
+      "backtick",
+      {
+        avoidEscape: true,
+      },
+    ],
+    indent: ["error", 2, { SwitchCase: 1 }],
     "no-console": "off"
   }
 }
