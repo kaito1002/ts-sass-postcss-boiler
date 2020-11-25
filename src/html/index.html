@@ -5,8 +5,9 @@
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <link rel='icon' href='favicon.ico'>
-  <link rel="stylesheet" href="./main.bundle.css">
   <title>TS & SASS Boiler</title>
+
+  <%= htmlWebpackPlugin.tags.headTags %>
 </head>
 
 <body>
@@ -29,8 +30,7 @@
   </article>
   <footer class="l-footer">© KK</footer>
 
-  <script src="./main.bundle.js"></script>
-  <script src="./vendor.bundle.js"></script>
+  <%= htmlWebpackPlugin.tags.bodyTags %>
 </body>
 
 </html>

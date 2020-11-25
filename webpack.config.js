@@ -4,34 +4,44 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const ESLintPlugin = require('eslint-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
+const { merge } = require('webpack-merge');
 
 const buildDir = "dist";
-const isBundleCss = true;
 
-/*
-  - CSSを`.css`ファイルにバンドルするか(しない場合は, JSにバンドルされる)
-  - しない場合, HTMLからlinkタグを取り除く
-*/
+const entries = {}
+for (const fileName of require('fs').readdirSync(path.resolve(__dirname, 'src', 'entries'))) {
+  entries[fileName.split('.')[0]] = `./src/entries/${fileName}`
+}
 
 const baseConfig = {
-  entry: { main: "./src/index.ts" },
+  entry: entries,
   output: {
+    publicPath: "/",
     path: path.resolve(__dirname, buildDir),
-    filename: "[name].bundle.js",
+    filename: "js/[name].[contenthash].bundle.js",
     pathinfo: false
+  },
+  resolve: {
+    extensions: [".ts", ".js", ".tsx", ".jsx"],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: path.resolve(__dirname, 'tsconfig.json'),
+      })
+    ]
   },
   devtool: "inline-source-map",
   optimization: {
     splitChunks: {
-      // 参考: https://qiita.com/soarflat/items/1b5aa7163c087a91877d
+      chunks: "async",
       cacheGroups: {
         vendors: {
           name: "vendor",
           test: /node_modules/,
-          chunks: "initial",
-          enforce: true
+          enforce: true,
         },
         default: {
           minChunks: 2,
@@ -40,7 +50,6 @@ const baseConfig = {
         }
       }
     },
-    minimizer: []
   },
   module: {
     rules: [
@@ -53,22 +62,13 @@ const baseConfig = {
               transpileOnly: false
             }
           },
-          {
-            loader: "eslint-loader",
-            options: {
-              enforce: 'pre',
-              configFile: path.resolve(__dirname, '.eslintrc.js'),
-              cache: true,
-              fix: true
-            }
-          }
         ],
         exclude: /node_modules/
       },
       {
         test: /\.(s?)css$/,
         use: [
-          "style-loader",
+          MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
             options: {
@@ -76,7 +76,9 @@ const baseConfig = {
               importLoaders: 2
             }
           },
-          'postcss-loader',
+          {
+            loader: "postcss-loader",
+          },
           {
             loader: "sass-loader",
             options: {
@@ -91,15 +93,15 @@ const baseConfig = {
       }
     ]
   },
-  resolve: {
-    extensions: [".ts", ".js"]
-  },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: "css/[name].[contenthash].bundle.css"
+    }),
     new HtmlWebpackPlugin({
-      inject: false,
       hash: true,
-      template: "./src/index.html",
-      filename: "index.html"
+      template: "./src/html/index.html",
+      inject: false,
+      chunks:['vendor', 'index']
     }),
     new ImageminWebpWebpackPlugin({
       config: [{
@@ -110,60 +112,57 @@ const baseConfig = {
       }],
       overrideExtension: false
     }),
+    new ESLintPlugin({
+      overrideConfigFile: path.resolve(__dirname, '.eslintrc.js'),
+      cache: false,
+      fix: false
+    }),
     new StyleLintPlugin({
       files: ['./src/styles/**/*.scss'],
       syntax: 'scss',
-      fix: true
+      fix: false
     })
   ]
 };
 
-// CSS Bundle Config
-if (isBundleCss) {
-  baseConfig.module.rules[1].use.splice(1, 0, MiniCssExtractPlugin.loader);
-  baseConfig.plugins.unshift(new MiniCssExtractPlugin({
-    filename: "[name].bundle.css"
-  }));
-}
-
-const devConfig = Object.assign({}, baseConfig, {
-  devtool: "eval-sourcemap",
+const devConfig = merge(baseConfig, {
+  devtool: "eval-source-map",
   devServer: {
     contentBase: [
-      path.join(__dirname, "src")
+      path.resolve(__dirname, "dist"),
+      path.join(__dirname, "src"),
     ],
     watchContentBase: true,
-    overlay: true
+    index: 'index.html',
+    overlay: true,
+    port: 8000
   }
 })
 
-const productConfig = Object.assign({}, baseConfig, {
+const productConfig = merge(baseConfig, {
   devtool: false,
   plugins: [
-    // 1. 既存のファイルを削除
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ["**/*"]
     }),
-    // 2. ビルド
-    ...baseConfig.plugins,
-    // 3. static files のコピー
     new CopyWebpackPlugin({
       patterns: [
         { from: "public", to: "[path][name].[ext]" },
         { from: "src/assets", to: "assets" }
       ]
     })
-  ]
+  ],
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        extractComments: true,
+        terserOptions: {
+          compress: { drop_console: true }
+        }
+      })
+    ]
+  }
 })
-
-productConfig.optimization.minimizer.push(
-  new TerserPlugin({
-    terserOptions: {
-      extractComments: 'all',
-      compress: { drop_console: true }
-    }
-  })
-)
 
 module.exports = (env, options) => {
   const production = options.mode === "production";
